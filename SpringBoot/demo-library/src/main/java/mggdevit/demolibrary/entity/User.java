@@ -1,5 +1,7 @@
 package mggdevit.demolibrary.entity;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,18 +16,30 @@ public class User {
 	@GeneratedValue
 	private Long id;
 
-	@Column(unique = true, nullable = false)
+//	@Column(unique = true, nullable = false)
 	private String email;
 
-	@Column(nullable = false)
+//	@Column(nullable = false)
 	private String password;
 
 	private String fullName;
 
 	public User() {
-		// TODO Auto-generated constructor stub
 	}
 
+//	public User(Long id, String fullName) {
+//		this.id = id;
+//		this.fullName = fullName;
+//	}
+
+//	public User(String fullName) {
+//		this(UUID.randomUUID().toString(), fullName);
+//	}
+
+	public User(String fullName) {
+		this.fullName = fullName;
+	}
+	
 	public Long getId() {
 		return id;
 	}
