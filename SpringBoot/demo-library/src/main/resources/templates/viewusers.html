@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Demo Library</title>
+<link rel="stylesheet" th:href="@{/css/mgg.css}" />
+</head>
+
+<body>
+	<div class="commondiv">Demo Library Users View page</div>
+
+	<div class="commondiv">
+		<table border="1">
+			<caption>Users</caption>
+			<tr>
+				<th>ID</th>
+				<th>Full Name</th>
+				<th>Email</th>
+			</tr>
+			<tr th:each="user : ${users}">
+<!-- 				<td th:text="${personStat.count}">...</td> -->
+				<td th:text="${user.id}">...</td>
+				<td th:text="${user.fullName}">...</td>
+				<td th:text="${user.email}">...</td>
+<!-- 				<td th:text="${user.password}">...</td> -->
+			</tr>
+		</table>
+	</div>
+
+<!-- 	<div class="commondiv"> -->
+<!-- 		<form action="/action_page.php"> -->
+<!-- 			<fieldset> -->
+<!-- 				<legend>Personal information</legend> -->
+<!-- 				First name:<br> <input type="text" name="firstname" -->
+<!-- 					value="Mickey"> <br> Last name:<br> <input -->
+<!-- 					type="text" name="lastname" value="Mouse"> <br> <br> -->
+<!-- 				<input type="submit" value="Submit"> -->
+<!-- 			</fieldset> -->
+<!-- 		</form> -->
+<!-- 	</div> -->
+
+</body>
+
+
+</html>

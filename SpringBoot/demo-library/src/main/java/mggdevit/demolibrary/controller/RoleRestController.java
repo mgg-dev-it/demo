@@ -18,7 +18,7 @@ import mggdevit.demolibrary.entity.Role;
 import mggdevit.demolibrary.repo.RoleRepository;
 
 @RestController
-@RequestMapping("/roles")
+@RequestMapping("/api/roles")
 public class RoleRestController {
 
 	@Autowired

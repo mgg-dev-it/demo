@@ -18,7 +18,7 @@ import mggdevit.demolibrary.entity.User;
 import mggdevit.demolibrary.repo.UserRepository;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserRestController {
 
 	@Autowired

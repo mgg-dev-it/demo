@@ -1,8 +1,5 @@
 package mggdevit.demolibrary.entity;
 
-import java.util.UUID;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -38,6 +35,7 @@ public class User {
 
 	public User(String fullName) {
 		this.fullName = fullName;
+//		this.email="email";
 	}
 	
 	public Long getId() {
