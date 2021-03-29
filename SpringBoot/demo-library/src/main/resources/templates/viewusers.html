@@ -7,40 +7,64 @@
 
 <title>Demo Library</title>
 <link rel="stylesheet" th:href="@{/css/mgg.css}" />
+
+<script type="text/javascript">
+	function doEdit(id){
+		//alert(id);
+		var div_list = document.getElementById("div_list");
+		var div_form = document.getElementById("div_form");
+		div_list.style.display = 'none';
+		div_form.style.display = 'block';
+	}
+	function doBack(){
+		//alert(id);
+		var div_list = document.getElementById("div_list");
+		var div_form = document.getElementById("div_form");
+		div_list.style.display = 'block';
+		div_form.style.display = 'none';
+	}
+</script>
 </head>
 
 <body>
 	<div class="commondiv">Demo Library Users View page</div>
 
-	<div class="commondiv">
+	<div class="commondiv" id="div_list">
 		<table border="1">
 			<caption>Users</caption>
 			<tr>
 				<th>ID</th>
 				<th>Full Name</th>
 				<th>Email</th>
+				<th>&nbsp;</th>
 			</tr>
 			<tr th:each="user : ${users}">
-<!-- 				<td th:text="${personStat.count}">...</td> -->
+				<!-- 				<td th:text="${personStat.count}">...</td> -->
 				<td th:text="${user.id}">...</td>
 				<td th:text="${user.fullName}">...</td>
 				<td th:text="${user.email}">...</td>
-<!-- 				<td th:text="${user.password}">...</td> -->
+<!-- 				<td><input type="button" value="Edit" th:attr="value=${user.id}, onclick=doEdit(${user.id})"></td> -->
+				<td><input type="button" value="Edit" th:value="${user.id}" th:onclick="|doEdit(${user.id})|"></td>
+				<!-- 				<td th:text="${user.password}">...</td> -->
 			</tr>
 		</table>
 	</div>
+	<div class="commondiv" id="div_form" style="display:none">
+	Form
+	<input type="button" value="Back" onclick="doBack()" >
+	</div>
 
-<!-- 	<div class="commondiv"> -->
-<!-- 		<form action="/action_page.php"> -->
-<!-- 			<fieldset> -->
-<!-- 				<legend>Personal information</legend> -->
-<!-- 				First name:<br> <input type="text" name="firstname" -->
-<!-- 					value="Mickey"> <br> Last name:<br> <input -->
-<!-- 					type="text" name="lastname" value="Mouse"> <br> <br> -->
-<!-- 				<input type="submit" value="Submit"> -->
-<!-- 			</fieldset> -->
-<!-- 		</form> -->
-<!-- 	</div> -->
+	<!-- 	<div class="commondiv"> -->
+	<!-- 		<form action="/action_page.php"> -->
+	<!-- 			<fieldset> -->
+	<!-- 				<legend>Personal information</legend> -->
+	<!-- 				First name:<br> <input type="text" name="firstname" -->
+	<!-- 					value="Mickey"> <br> Last name:<br> <input -->
+	<!-- 					type="text" name="lastname" value="Mouse"> <br> <br> -->
+	<!-- 				<input type="submit" value="Submit"> -->
+	<!-- 			</fieldset> -->
+	<!-- 		</form> -->
+	<!-- 	</div> -->
 
 </body>
 
