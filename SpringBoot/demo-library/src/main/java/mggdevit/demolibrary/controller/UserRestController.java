@@ -50,24 +50,4 @@ public class UserRestController {
 		userRepository.deleteById(id);
 	}
 
-	/*
-	 * @GetMapping Iterable<Coffee> getCoffees() { return coffees; }
-	 * 
-	 * @GetMapping("/{id}") Optional<Coffee> getCoffeeById(@PathVariable String id)
-	 * { for (Coffee c: coffees) { if (c.getId().equals(id)) { return
-	 * Optional.of(c); } } return Optional.empty(); }
-	 * 
-	 * @PostMapping Coffee postCoffee(@RequestBody Coffee coffee) {
-	 * coffees.add(coffee); return coffee; }
-	 * 
-	 * @PutMapping("/{id}") Coffee putCoffee(@PathVariable String id, @RequestBody
-	 * Coffee coffee) { int coffeeIndex = -1; for (Coffee c: coffees) { if
-	 * (c.getId().equals(id)) { coffeeIndex = coffees.indexOf(c);
-	 * coffees.set(coffeeIndex, coffee); } } return (coffeeIndex == -1) ?
-	 * postCoffee(coffee) : coffee; }
-	 * 
-	 * @DeleteMapping("/{id}") void deleteCoffee(@PathVariable String id) {
-	 * coffees.removeIf(c -> c.getId().equals(id)); }
-	 */
-
 }
