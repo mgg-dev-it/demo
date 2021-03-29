@@ -15,6 +15,7 @@
 		var div_form = document.getElementById("div_form");
 		div_list.style.display = 'none';
 		div_form.style.display = 'block';
+		doGetData(id);
 	}
 	function doBack(){
 		//alert(id);
@@ -22,6 +23,23 @@
 		var div_form = document.getElementById("div_form");
 		div_list.style.display = 'block';
 		div_form.style.display = 'none';
+	}
+	function doGetData(id){
+		var xhr = new XMLHttpRequest(id);
+		xhr.open("GET", "/api/users/"+id, true);
+		xhr.onload = function (e) {
+  		if (xhr.readyState === 4) {
+    		if (xhr.status === 200) {
+    	  		console.log(xhr.responseText);
+    			} else {
+      			console.error(xhr.statusText);
+    			}
+  			}
+		};
+		xhr.onerror = function (e) {
+  		console.error(xhr.statusText);
+	};
+xhr.send(null);
 	}
 </script>
 </head>
@@ -34,7 +52,7 @@
 			<caption>Users</caption>
 			<tr>
 				<th>ID</th>
-				<th>Full Name</th>
+				<th>Full name</th>
 				<th>Email</th>
 				<th>&nbsp;</th>
 			</tr>
@@ -43,15 +61,57 @@
 				<td th:text="${user.id}">...</td>
 				<td th:text="${user.fullName}">...</td>
 				<td th:text="${user.email}">...</td>
-<!-- 				<td><input type="button" value="Edit" th:attr="value=${user.id}, onclick=doEdit(${user.id})"></td> -->
-				<td><input type="button" value="Edit" th:value="${user.id}" th:onclick="|doEdit(${user.id})|"></td>
+				<!-- 				<td><input type="button" value="Edit" th:attr="value=${user.id}, onclick=doEdit(${user.id})"></td> -->
+				<td><input type="button" value="Edit" th:value="${user.id}"
+					th:onclick="|doEdit(${user.id})|"></td>
 				<!-- 				<td th:text="${user.password}">...</td> -->
 			</tr>
 		</table>
 	</div>
-	<div class="commondiv" id="div_form" style="display:none">
-	Form
-	<input type="button" value="Back" onclick="doBack()" >
+
+	<div class="commondiv" id="div_form" style="display: none">
+		Form <input type="button" value="Back" onclick="doBack()">
+
+		<form action="form" th:action="@{/form}" th:object="${oneuser}"
+			method="post">
+			<fieldset>
+				<legend>User</legend>
+				<table>
+					<tr>
+						<td><label for="id">ID:</label></td>
+						<td><input type="text" th:field="*{id}" value="John" /></td>
+					</tr>
+					<tr>
+						<td><label for="fullName">Full name:</label></td>
+						<td><input type="text" th:field="*{fullName}" value="John" /></td>
+					</tr>
+					<tr>
+						<td><label for="email">Email:</label></td>
+						<td><input type="text" th:field="*{email}" value="Wayne" /></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td><input type="submit" value="Submit" /></td>
+					</tr>
+				</table>
+
+			</fieldset>
+
+			<div>
+				<ul>
+					<li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+				</ul>
+			</div>
+			<hr>
+			<ul>
+				<li th:each="e : ${#fields.detailedErrors()}"
+					th:class="${e.global}? globalerr : fielderr"><span
+					th:text="${e.global}? '*' : ${e.fieldName}">The field name</span> |
+					<span th:text="${e.message}">The error message</span></li>
+			</ul>
+		</form>
+
+
 	</div>
 
 	<!-- 	<div class="commondiv"> -->

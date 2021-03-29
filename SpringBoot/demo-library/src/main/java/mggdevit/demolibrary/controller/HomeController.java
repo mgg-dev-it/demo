@@ -30,6 +30,7 @@ public class HomeController {
 //		model.addAttribute("th_text_example", "<div>bla<br>bla</div>");
 //		model.addAttribute("th_utext_example", "<div>bla<br>bla</div>");
 //		model.addAttribute("th_date_today", new java.util.Date());
+		model.addAttribute("oneuser", userRepository.findById(2L));
 		model.addAttribute("users", userRepository.findAll());
 		return ("viewusers");
 	}
