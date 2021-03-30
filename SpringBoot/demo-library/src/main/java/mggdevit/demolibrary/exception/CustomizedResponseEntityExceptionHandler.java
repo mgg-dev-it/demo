@@ -41,8 +41,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
     	
         List<String> errors = new ArrayList<String>();
         for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-            errors.add(violation.getRootBeanClass().getName() + " " + 
-              violation.getPropertyPath() + ": " + violation.getMessage());
+            errors.add(violation.getRootBeanClass().getName() + " " + violation.getPropertyPath() + ": " + violation.getMessage());
         }    	
     	
         Map<String, Object> body = new LinkedHashMap<>();
