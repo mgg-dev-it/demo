@@ -24,29 +24,32 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-    //...
+	// ...
 
-    // @Validate For Validating Path Variables and Request Parameters
+	// @Validate For Validating Path Variables and Request Parameters
 //    @ExceptionHandler(ConstraintViolationException.class)
 //    public void constraintViolationException(HttpServletResponse response) throws IOException {
 //    	System.err.println("adasdasdasdasdasdasdasdas");
 //        response.sendError(HttpStatus.BAD_REQUEST.value());
 //    }
 
-    // @Validate For Validating Path Variables and Request Parameters
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<Object> constraintViolationException(ConstraintViolationException ex, WebRequest request) throws IOException {
-    	//System.err.println("adasdasdasdasdasdasdasdas");
-    	//response.sendError(HttpStatus.BAD_REQUEST.value());
-    	
-        List<String> errors = new ArrayList<String>();
-        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-            errors.add(violation.getRootBeanClass().getName() + " " + violation.getPropertyPath() + ": " + violation.getMessage());
-        }    	
-    	
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", new Date());
-        body.put("status", HttpStatus.BAD_REQUEST);
+	// @Validate For Validating Path Variables and Request Parameters
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<Object> constraintViolationException(ConstraintViolationException ex, WebRequest request)
+			throws IOException {
+		// System.err.println("adasdasdasdasdasdasdasdas");
+		// response.sendError(HttpStatus.BAD_REQUEST.value());
+
+		List<String> errors = new ArrayList<String>();
+		for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+//            errors.add(violation.getRootBeanClass().getName() + " " + violation.getPropertyPath() + ": " + violation.getMessage());
+			errors.add(violation.getRootBeanClass().getName() + " " + violation.getPropertyPath() + ": "
+					+ violation.getMessage());
+		}
+
+		Map<String, Object> body = new LinkedHashMap<>();
+		body.put("timestamp", new Date());
+		body.put("status", HttpStatus.BAD_REQUEST);
 
 //        //Get all fields errors
 //        List<String> errors = ex.getBindingResult()
@@ -55,33 +58,28 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 //                .map(x -> x.getDefaultMessage())
 //                .collect(Collectors.toList());
 
-        body.put("errors", errors);
+		body.put("errors", errors);
 
-        return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.BAD_REQUEST);
-    }
-    
-    // error handle for @Valid
-    @Override
-    protected ResponseEntity<Object>
-    handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                 HttpHeaders headers,
-                                 HttpStatus status, WebRequest request) {
+		return new ResponseEntity<>(body, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+	}
 
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", new Date());
-        body.put("status", status.value());
+	// error handle for @Valid
+	@Override
+	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
 
-        //Get all fields errors
-        List<String> errors = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(x -> x.getDefaultMessage())
-                .collect(Collectors.toList());
+		Map<String, Object> body = new LinkedHashMap<>();
+		body.put("timestamp", new Date());
+		body.put("status", status.value());
 
-        body.put("errors", errors);
+		// Get all fields errors
+		List<String> errors = ex.getBindingResult().getFieldErrors().stream().map(x -> x.getDefaultMessage())
+				.collect(Collectors.toList());
 
-        return new ResponseEntity<>(body, headers, status);
+		body.put("errors", errors);
 
-    }
+		return new ResponseEntity<>(body, headers, status);
+
+	}
 
 }
