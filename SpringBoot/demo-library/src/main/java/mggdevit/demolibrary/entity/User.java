@@ -1,9 +1,12 @@
 package mggdevit.demolibrary.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import mggdevit.demolibrary.validation.ValidEmail;
 
 @Entity
 @Table(name = "users")
@@ -13,12 +16,14 @@ public class User {
 	@GeneratedValue
 	private Long id;
 
-//	@Column(unique = true, nullable = false)
+	@Column(unique = true, nullable = false)
+	@ValidEmail
 	private String email;
 
 //	@Column(nullable = false)
 	private String password;
 
+	@Column(nullable = false)
 	private String fullName;
 
 	public User() {
@@ -35,9 +40,9 @@ public class User {
 
 	public User(String fullName) {
 		this.fullName = fullName;
-//		this.email="email";
+		this.email = fullName.replaceAll(" ", "") + "@email.eml";
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
