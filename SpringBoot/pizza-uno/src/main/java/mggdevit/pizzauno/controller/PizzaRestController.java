@@ -22,7 +22,8 @@ import mggdevit.pizzauno.entity.Pizza;
 import mggdevit.pizzauno.repo.PizzaRepository;
 
 @RestController
-@RequestMapping("/api/users")public class PizzaRestController {
+@RequestMapping("/api/pizzas")
+public class PizzaRestController {
 
 	@Autowired
 	private PizzaRepository pizzaRepository;
@@ -31,28 +32,32 @@ import mggdevit.pizzauno.repo.PizzaRepository;
 
 	@GetMapping
 	public Iterable<Pizza> getPizzas() {
+		logger.info("getPizzas");
 		return pizzaRepository.findAll();
 	}
 
 	@GetMapping("/{id}")
 	Optional<Pizza> getPizzaById(@PathVariable Long id) {
+		logger.info("getPizzaById " + id);
 		return pizzaRepository.findById(id);
 	}
 
 	@PostMapping
 	Pizza postPizza(@Valid @RequestBody Pizza pizza) {
-		logger.info("postUser");
+		logger.info("postPizza");
 		return pizzaRepository.save(pizza);
 	}
 
 	@PutMapping("/{id}")
-	ResponseEntity<Pizza> puPizzar(@PathVariable Long id, @Valid @RequestBody Pizza pizza) {
+	ResponseEntity<Pizza> putPizza(@PathVariable Long id, @Valid @RequestBody Pizza pizza) {
+		logger.info("putPizza " + id);
 		return (!pizzaRepository.existsById(id)) ? new ResponseEntity<>(pizzaRepository.save(pizza), HttpStatus.CREATED)
 				: new ResponseEntity<>(pizzaRepository.save(pizza), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	void deletePizza(@PathVariable Long id) {
+		logger.info("deletePizza " + id);
 		pizzaRepository.deleteById(id);
 	}
 
