@@ -1,4 +1,4 @@
-package mggdevit.demolibrary.controller;
+package mggdevit.pizzauno.controller;
 
 import java.util.Optional;
 
@@ -18,43 +18,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mggdevit.demolibrary.entity.User;
-import mggdevit.demolibrary.repo.UserRepository;
+import mggdevit.pizzauno.entity.Pizza;
+import mggdevit.pizzauno.repo.PizzaRepository;
 
 @RestController
-@RequestMapping("/api/users")
-public class UserRestController {
+@RequestMapping("/api/users")public class PizzaRestController {
 
 	@Autowired
-	private UserRepository userRepository;
+	private PizzaRepository pizzaRepository;
 
-	Logger logger = LoggerFactory.getLogger(UserRestController.class);
+	Logger logger = LoggerFactory.getLogger(PizzaRestController.class);
 
 	@GetMapping
-	public Iterable<User> getUsers() {
-		return userRepository.findAll();
+	public Iterable<Pizza> getPizzas() {
+		return pizzaRepository.findAll();
 	}
 
 	@GetMapping("/{id}")
-	Optional<User> getUserById(@PathVariable Long id) {
-		return userRepository.findById(id);
+	Optional<Pizza> getPizzaById(@PathVariable Long id) {
+		return pizzaRepository.findById(id);
 	}
 
 	@PostMapping
-	User postUser(@Valid @RequestBody User user) {
+	Pizza postPizza(@Valid @RequestBody Pizza pizza) {
 		logger.info("postUser");
-		return userRepository.save(user);
+		return pizzaRepository.save(pizza);
 	}
 
 	@PutMapping("/{id}")
-	ResponseEntity<User> putUser(@PathVariable Long id, @Valid @RequestBody User user) {
-		return (!userRepository.existsById(id)) ? new ResponseEntity<>(userRepository.save(user), HttpStatus.CREATED)
-				: new ResponseEntity<>(userRepository.save(user), HttpStatus.OK);
+	ResponseEntity<Pizza> puPizzar(@PathVariable Long id, @Valid @RequestBody Pizza pizza) {
+		return (!pizzaRepository.existsById(id)) ? new ResponseEntity<>(pizzaRepository.save(pizza), HttpStatus.CREATED)
+				: new ResponseEntity<>(pizzaRepository.save(pizza), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	void deleteUser(@PathVariable Long id) {
-		userRepository.deleteById(id);
+	void deletePizza(@PathVariable Long id) {
+		pizzaRepository.deleteById(id);
 	}
 
 }
