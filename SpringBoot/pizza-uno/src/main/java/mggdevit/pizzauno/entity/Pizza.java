@@ -27,6 +27,9 @@ public class Pizza {
 	@Max(value = 500, message = "must be equal or less than 500")
 	private int value;
 
+	public Pizza() {
+	}
+
 	public Pizza(String name, int value) {
 		this.name = name;
 		this.value = value;
