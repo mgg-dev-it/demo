@@ -12,7 +12,7 @@
 <body>
 	<h1>Pizza Uno</h1>
 
-	<div class="commondiv" id="div_list">
+	<div class="commondiv" id="div_menu">
 		<table border="1">
 			<caption><b>Menu</b></caption>
 			<tr>
@@ -24,6 +24,59 @@
 				<td th:text="${pizza.id}">...</td>
 				<td th:text="${pizza.name}">...</td>
 				<td th:text="${pizza.value}">...</td>
+			</tr>
+		</table>
+	</div>
+	
+	<hr>
+	
+	<div class="commondiv" id="div_form">
+		<form action="form" th:action="@{/}" th:object="${input}" method="post">
+			<fieldset>
+				<legend>Input</legend>
+				<table>
+					<tr>
+						<td><label for="budget">Budget:</label></td>
+						<td><input type="text" th:field="*{budget}" value="1000" /></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td><input type="submit" value="Submit" /></td>
+					</tr>
+				</table>
+
+			</fieldset>
+
+			<div>
+				<ul>
+					<li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+				</ul>
+			</div>
+			<hr>
+			<ul>
+				<li th:each="e : ${#fields.detailedErrors()}"
+					th:class="${e.global}? globalerr : fielderr"><span
+					th:text="${e.global}? '*' : ${e.fieldName}">The field name</span> |
+					<span th:text="${e.message}">The error message</span></li>
+			</ul>
+		</form>
+	</div>
+	
+	
+	<hr>
+
+	<div class="commondiv" id="div_calc">
+		<table border="1">
+			<caption><b>Calc</b></caption>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Price</th>
+			</tr>
+			<tr th:each="item : ${calclist}">
+				<td th:text="${item.id}">...</td>
+				<td th:text="${item.name}">...</td>
+				<td th:text="${item.value}">...</td>
 			</tr>
 		</table>
 	</div>
