@@ -14,5 +14,5 @@ public class Calculator {
 //	}
 
     public List<Pizza> getCalc(int budget) {
-        return List.of(new Pizza("a", 100), new Pizza("b", 300), new Pizza("c", 300));
+        return List.of(new Pizza("a", 100), new Pizza("b", 300), new Pizza("c", budget));
     }}

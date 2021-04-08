@@ -36,8 +36,9 @@ public class HomeController {
 	public String indexGet(Model model) {
 		logger.info("get index called");
 		model.addAttribute("pizzas", pizzaRepository.findAll());
-		model.addAttribute("input", new Input(1000));
-		model.addAttribute("calclist", calculator.getCalc(5000));
+		Input input = new Input(1000);
+		model.addAttribute("input", input);
+		model.addAttribute("calclist", calculator.getCalc(input.getBudget()));
 		return ("index");
 	}
 
@@ -47,7 +48,7 @@ public class HomeController {
 		logger.info("budget = " + input.getBudget());
 		model.addAttribute("pizzas", pizzaRepository.findAll());
 		model.addAttribute("input", input);
-		model.addAttribute("calclist", calculator.getCalc(5000));
+		model.addAttribute("calclist", calculator.getCalc(input.getBudget()));
 		return ("index");
 	}
 
