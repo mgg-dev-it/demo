@@ -33,16 +33,7 @@ tr:hover:nth-child(even) {
 	background-color: #0080C0;
 }
 
-table.formtable {
-	border: 0px solid blue;
-}
-
-tr.formtablerow {
-	background-color: transparent;
-	border: 0px solid blue;
-}
-
-td.formtablecell {
+table.formtable, tr.formtablerow, td.formtablecell {
 	background-color: transparent;
 	border: 0px solid blue;
 }
