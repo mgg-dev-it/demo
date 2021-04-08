@@ -26,13 +26,27 @@ tr:nth-child(even) {
 }
 
 tr:hover:nth-child(odd) {
-	background-color: yellow;
+	background-color: #0080C0;
 }
 
 tr:hover:nth-child(even) {
-	background-color: yellow;
+	background-color: #0080C0;
 }
 
-.commondiv{
+table.formtable {
+	border: 0px solid blue;
+}
+
+tr.formtablerow {
+	background-color: transparent;
+	border: 0px solid blue;
+}
+
+td.formtablecell {
+	background-color: transparent;
+	border: 0px solid blue;
+}
+
+.commondiv {
 	margin: 10px;
 }

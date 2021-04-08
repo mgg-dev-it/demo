@@ -9,6 +9,13 @@
 <link rel="stylesheet" th:href="@{/css/mgg.css}" />
 </head>
 
+<script type="text/javascript">
+	function doOnLoad() {
+		document.getElementById("input_budget").focus();
+	}
+	window.addEventListener("load", doOnLoad);
+</script>
+
 <body>
 	<h1>Pizza Uno</h1>
 
@@ -28,20 +35,20 @@
 		</table>
 	</div>
 	
-	<hr>
+<!-- 	<hr> -->
 	
 	<div class="commondiv" id="div_form">
 		<form action="form" th:action="@{/}" th:object="${input}" method="post">
 			<fieldset>
 				<legend>Input</legend>
-				<table>
-					<tr>
-						<td><label for="budget">Budget:</label></td>
-						<td><input type="text" th:field="*{budget}" value="1000" /></td>
+				<table class="formtable">
+					<tr class="formtablerow">
+						<td class="formtablecell"><label for="budget">Budget:</label></td>
+						<td class="formtablecell"><input type="text" th:field="*{budget}" value="1000" id="input_budget" /></td>
 					</tr>
-					<tr>
-						<td>&nbsp;</td>
-						<td><input type="submit" value="Submit" /></td>
+					<tr class="formtablerow">
+						<td class="formtablecell">&nbsp;</td>
+						<td class="formtablecell"><input type="submit" value="Submit" /></td>
 					</tr>
 				</table>
 
@@ -52,7 +59,7 @@
 					<li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
 				</ul>
 			</div>
-			<hr>
+<!-- 			<hr> -->
 			<ul>
 				<li th:each="e : ${#fields.detailedErrors()}"
 					th:class="${e.global}? globalerr : fielderr"><span
@@ -63,7 +70,7 @@
 	</div>
 	
 	
-	<hr>
+<!-- 	<hr> -->
 
 	<div class="commondiv" id="div_calc">
 		<table border="1">
