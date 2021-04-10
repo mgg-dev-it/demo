@@ -3,12 +3,9 @@ package mggdevit.pizzauno.util;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import mggdevit.pizzauno.controller.HomeController;
 import mggdevit.pizzauno.entity.Pizza;
 import mggdevit.pizzauno.entity.PizzaList;
 import mggdevit.pizzauno.repo.PizzaRepository;
