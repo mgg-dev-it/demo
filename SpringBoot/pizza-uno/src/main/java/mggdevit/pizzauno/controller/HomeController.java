@@ -47,7 +47,9 @@ public class HomeController {
 	public String indexPost(Model model, @ModelAttribute @Valid Input input, Errors errors) {
 		logger.info("post index called");
 		logger.info("budget = " + input.getBudget());
-		logger.info("error = " + errors.toString());
+		if (errors.hasErrors()) {
+			logger.info("error = " + errors.toString());
+		}
 		model.addAttribute("pizzas", pizzaRepository.findAll());
 		model.addAttribute("input", input);
 		// model.addAttribute("calclist", calculator.getCalc(input.getBudget()));

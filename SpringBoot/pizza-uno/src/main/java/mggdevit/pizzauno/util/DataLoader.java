@@ -21,6 +21,6 @@ public class DataLoader {
 	@PostConstruct
 	private void loadData() {
 		pizzaRepository
-				.saveAll(List.of(new Pizza("Margherita", 100), new Pizza("Salame", 300), new Pizza("Prosciutto", 300)));
+				.saveAll(List.of(new Pizza("Margherita", 100), new Pizza("Salame", 150), new Pizza("Prosciutto", 220)));
 	}
 }

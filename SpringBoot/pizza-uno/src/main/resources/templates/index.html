@@ -12,6 +12,7 @@
 <script type="text/javascript">
 	function doOnLoad() {
 		document.getElementById("input_budget").focus();
+		document.getElementById("input_budget").select();
 	}
 	window.addEventListener("load", doOnLoad);
 </script>
@@ -43,7 +44,7 @@
 				<legend>Input</legend>
 				<table class="formtable">
 					<tr class="formtablerow">
-						<td class="formtablecell"><label for="budget">Budget:</label></td>
+						<td class="formtablecell"><label for="budget">How much would you like to spend:</label></td>
 						<td class="formtablecell"><input type="text" th:field="*{budget}" value="1000" id="input_budget" /></td>
 					</tr>
 					<tr class="formtablerow">
@@ -74,16 +75,17 @@
 
 	<div class="commondiv" id="div_calc">
 		<table border="1">
-			<caption><b>Calc</b></caption>
+			<caption><b>Possible pizza variations at the smallest remainder amount</b></caption>
 			<tr>
-				<th>ID</th>
-				<th>Name</th>
-				<th>Price</th>
+				<th>Pizzas</th>
+				<th>Remainder</th>
 			</tr>
 			<tr th:each="item : ${calclist}">
-				<td th:text="${item.id}">...</td>
-				<td th:text="${item.name}">...</td>
-				<td th:text="${item.value}">...</td>
+				<td th:text="${item.pizzas}">...</td>
+				<td th:text="${item.remainder}">...</td>
+<!-- 				<td th:text="${item.id}">...</td> -->
+<!-- 				<td th:text="${item.name}">...</td> -->
+<!-- 				<td th:text="${item.value}">...</td> -->
 			</tr>
 		</table>
 	</div>

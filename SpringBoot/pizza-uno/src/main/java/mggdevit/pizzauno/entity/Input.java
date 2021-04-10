@@ -5,8 +5,8 @@ import javax.validation.constraints.Min;
 
 public class Input {
 
-	@Min(value = 1000, message = "must be equal or greater than 1000")
-	@Max(value = 5000, message = "must be equal or less than 5000")
+	@Min(value = 500, message = "must be equal or greater than 500")
+	@Max(value = 2000, message = "must be equal or less than 2000")
 	private int budget;
 
 	public Input() {
