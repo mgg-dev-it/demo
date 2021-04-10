@@ -41,10 +41,10 @@
 	<div class="commondiv" id="div_form">
 		<form action="form" th:action="@{/}" th:object="${input}" method="post">
 			<fieldset>
-				<legend>Input</legend>
+				<legend>We kindly offer you pizzas</legend>
 				<table class="formtable">
 					<tr class="formtablerow">
-						<td class="formtablecell"><label for="budget">How much would you like to spend:</label></td>
+						<td class="formtablecell"><label for="budget">How much would you like to spend?</label></td>
 						<td class="formtablecell"><input type="text" th:field="*{budget}" value="1000" id="input_budget" /></td>
 					</tr>
 					<tr class="formtablerow">
@@ -78,7 +78,7 @@
 			<caption><b>Possible pizza variations at the smallest remainder amount</b></caption>
 			<tr>
 				<th>Pizzas</th>
-				<th>Remainder</th>
+				<th>You get back :)</th>
 			</tr>
 			<tr th:each="item : ${calclist}">
 				<td th:text="${item.pizzas}">...</td>

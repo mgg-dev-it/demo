@@ -1,6 +1,7 @@
 package mggdevit.pizzauno.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,15 +16,12 @@ import mggdevit.pizzauno.repo.PizzaRepository;
 @Component
 public class Calculator {
 
-	Logger logger = LoggerFactory.getLogger(HomeController.class);
-
 	@Autowired
 	private PizzaRepository pizzaRepository;
 
 	@Autowired
 	SmallestRemainder sr;
 
-	// public List<Pizza> getCalc(int budget) {
 	public ArrayList<PizzaList> getCalc(int budget) {
 
 		ArrayList<Integer> alp = new ArrayList<>();
@@ -34,32 +32,25 @@ public class Calculator {
 
 		ArrayList<ArrayList<Integer>> alResultList = sr.getResult();
 
-		// logger.info("sr.getResult().size() = " + sr.getResult().size());
-
-		// ArrayList<ArrayList<String>> alToTheScreen = new ArrayList<>();
-		ArrayList<PizzaList> pl = new ArrayList<PizzaList>();
+		ArrayList<PizzaList> pll = new ArrayList<PizzaList>();
 		if (alResultList.size() < 1)
-			return pl;
+			return pll;
+
+		HashMap<Integer, String> hmPizzaByPrice = new HashMap<>();
+		pizzaRepository.findAll().forEach((Pizza p) -> {
+			hmPizzaByPrice.put(p.getValue(), p.getName());
+		});
 
 		alResultList.forEach((ArrayList<Integer> al) -> {
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < al.size() - 1; i++) {
 				if (i > 0)
 					sb.append(", ");
-				sb.append(al.get(i).toString());
+				sb.append(hmPizzaByPrice.get(al.get(i)));
 			}
-			// alLine.add(sb.toString());
-			// alLine.add(al.get(al.size() - 1).toString());
-			if (pl.size() < 5)
-				pl.add(new PizzaList(sb.toString(), al.get(al.size() - 1)));
+			if (pll.size() < 5)
+				pll.add(new PizzaList(sb.toString(), al.get(al.size() - 1)));
 		});
-		return pl;
-
-		// return List.of(new Pizza("a", 100), new Pizza("b", 300), new Pizza("c",
-		// budget));
-
-		// if(budget==0) return new ArrayList<Pizza>();
-		// return List.of(new Pizza("a", 100), new Pizza("b", 300), new Pizza("c",
-		// budget));
+		return pll;
 	}
 }
