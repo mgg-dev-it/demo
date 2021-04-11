@@ -26,7 +26,6 @@ import mggdevit.pizzadue.service.PizzaServiceInterface;
 public class PizzaRestController {
 
 	@Autowired
-	//private PizzaRepository pizzaRepository;
 	private PizzaServiceInterface pizzaService;
 
 	Logger logger = LoggerFactory.getLogger(PizzaRestController.class);

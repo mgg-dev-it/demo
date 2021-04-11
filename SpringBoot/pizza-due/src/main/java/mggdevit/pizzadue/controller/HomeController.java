@@ -20,19 +20,12 @@ import mggdevit.pizzadue.util.Calculator;;
 public class HomeController {
 
 	@Autowired
-	//private PizzaRepository pizzaRepository;
 	private PizzaServiceInterface pizzaService;
 
 	@Autowired
 	private Calculator calculator;
 
 	Logger logger = LoggerFactory.getLogger(HomeController.class);
-
-//	@RequestMapping("/")
-//	@GetMapping("/")
-//	public String index() {
-//		return ("index");
-//	}
 
 	@GetMapping("/")
 	public String indexGet(Model model) {
@@ -53,7 +46,6 @@ public class HomeController {
 		}
 		model.addAttribute("pizzas", pizzaService.getAllItems());
 		model.addAttribute("input", input);
-		// model.addAttribute("calclist", calculator.getCalc(input.getBudget()));
 		model.addAttribute("calclist", calculator.getCalc(errors.hasErrors() ? 0 : input.getBudget()));
 		return ("index");
 	}

@@ -22,16 +22,10 @@ import mggdevit.pizzadue.entity.PizzaRowMapper;
 public class PizzaService implements PizzaServiceInterface {
 
 	@Autowired
-//	private DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired
 	private PizzaDAOInterface pizzaDAO;
-
-//	public void setDataSource(DataSource dataSource) {
-//		this.dataSource = dataSource;
-//		this.jdbcTemplate = new JdbcTemplate(dataSource);
-//	}
 
 	@Override
 	public List<Pizza> getAllItems() {
