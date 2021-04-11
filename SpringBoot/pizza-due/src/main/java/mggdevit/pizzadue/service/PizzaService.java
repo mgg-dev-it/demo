@@ -38,29 +38,46 @@ public class PizzaService implements PizzaServiceInterface {
 		return pizzaDAO.getAllItems();
 	}
 
+	@Override
+	public Optional<Pizza> findById(long id) {
+		return Optional.of(jdbcTemplate.queryForObject("select * from pizza where id=?", new PizzaRowMapper(), id));
+	}
 
 	@Override
-    public Optional<Pizza> findById(long id) {
-        return Optional.of(jdbcTemplate.queryForObject("select * from pizza where id=?", new PizzaRowMapper (), id));
-    }
-    
-    
+	public boolean existsById(long id) {
+		Pizza pizza = jdbcTemplate.queryForObject("select * from pizza where id=?", new PizzaRowMapper(), id);
+		return pizza != null;
+	}
+
 	@Override
 	public Pizza addPizza(Pizza pizza) {
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTemplate.update(new PreparedStatementCreator() {
-	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-	            PreparedStatement ps =
-	                connection.prepareStatement("insert into pizza(name, value) values (?,?)", new String[] {"id"});
-	            ps.setString(1, pizza.getName());
-	            ps.setInt(2, pizza.getValue());
-	            return ps;
-	        }
-	    },
-	    keyHolder);
-		
+			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement("insert into pizza(name, value) values (?,?)",
+						new String[] { "id" });
+				ps.setString(1, pizza.getName());
+				ps.setInt(2, pizza.getValue());
+				return ps;
+			}
+		}, keyHolder);
+
 		BigInteger bi = keyHolder.getKeyAs(BigInteger.class);
 		pizza.setId(bi.longValue());
+		return pizza;
+	}
+
+	@Override
+	public Pizza updatePizza(Pizza pizza) {
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				PreparedStatement ps = connection.prepareStatement("update pizza set name=?, value=? where id=?");
+				ps.setString(1, pizza.getName());
+				ps.setInt(2, pizza.getValue());
+				ps.setLong(3, pizza.getId());
+				return ps;
+			}
+		});
 		return pizza;
 	}
 
@@ -68,10 +85,4 @@ public class PizzaService implements PizzaServiceInterface {
 	public void deletePizza(Long id) {
 		jdbcTemplate.update("delete from pizza where id=" + id);
 	}
-
-	@Override
-	public long getGeneratedKey(Pizza pizza) {
-		return pizza.getId();
-	}
-
 }

@@ -10,10 +10,12 @@ public interface PizzaServiceInterface {
 	List<Pizza> getAllItems();
 
     public Optional<Pizza> findById(long id);
+
+    public boolean existsById(long id);
     
     Pizza addPizza(Pizza pizza);
 
-	void deletePizza(Long id);
+    Pizza updatePizza(Pizza pizza);
 
-	long getGeneratedKey(Pizza pizza);
+	void deletePizza(Long id);
 }
