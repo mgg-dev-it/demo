@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Pizza Uno</title>
+<link rel="stylesheet" th:href="@{/css/mgg.css}" />
+</head>
+
+<script type="text/javascript">
+	function doOnLoad() {
+		document.getElementById("input_budget").focus();
+		document.getElementById("input_budget").select();
+	}
+	window.addEventListener("load", doOnLoad);
+</script>
+
+<body>
+	<h1>Pizza Uno</h1>
+
+	<div class="commondiv" id="div_menu">
+		<table border="1">
+			<caption><b>Menu</b></caption>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Price</th>
+			</tr>
+			<tr th:each="pizza : ${pizzas}">
+				<td th:text="${pizza.id}">...</td>
+				<td th:text="${pizza.name}">...</td>
+				<td th:text="${pizza.value}">...</td>
+			</tr>
+		</table>
+	</div>
+	
+<!-- 	<hr> -->
+	
+	<div class="commondiv" id="div_form">
+		<form action="form" th:action="@{/}" th:object="${input}" method="post">
+			<fieldset>
+				<legend>We kindly offer you pizzas</legend>
+				<table class="formtable">
+					<tr class="formtablerow">
+						<td class="formtablecell"><label for="budget">How much would you like to spend?</label></td>
+						<td class="formtablecell"><input type="text" th:field="*{budget}" value="1000" id="input_budget" /></td>
+					</tr>
+					<tr class="formtablerow">
+						<td class="formtablecell">&nbsp;</td>
+						<td class="formtablecell"><input type="submit" value="Submit" /></td>
+					</tr>
+				</table>
+
+			</fieldset>
+
+			<div>
+				<ul>
+					<li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+				</ul>
+			</div>
+<!-- 			<hr> -->
+			<ul>
+				<li th:each="e : ${#fields.detailedErrors()}"
+					th:class="${e.global}? globalerr : fielderr"><span
+					th:text="${e.global}? '*' : ${e.fieldName}">The field name</span> |
+					<span th:text="${e.message}">The error message</span></li>
+			</ul>
+		</form>
+	</div>
+	
+	
+<!-- 	<hr> -->
+
+	<div class="commondiv" id="div_calc">
+		<table border="1">
+			<caption><b>Possible pizza variations at the smallest remainder amount</b></caption>
+			<tr>
+				<th>Pizzas</th>
+				<th>You get back :)</th>
+			</tr>
+			<tr th:each="item : ${calclist}">
+				<td th:text="${item.pizzas}">...</td>
+				<td th:text="${item.remainder}">...</td>
+<!-- 				<td th:text="${item.id}">...</td> -->
+<!-- 				<td th:text="${item.name}">...</td> -->
+<!-- 				<td th:text="${item.value}">...</td> -->
+			</tr>
+		</table>
+	</div>
+
+</body>
+
+
+</html>

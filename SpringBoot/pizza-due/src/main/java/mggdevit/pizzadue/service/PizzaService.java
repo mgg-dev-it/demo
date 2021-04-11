@@ -1,5 +1,6 @@
 package mggdevit.pizzadue.service;
 
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -38,15 +39,14 @@ public class PizzaService implements PizzaServiceInterface {
 	}
 
 
+	@Override
     public Optional<Pizza> findById(long id) {
-        return Optional.of(jdbcTemplate.queryForObject("select * from employees where id=?", new PizzaRowMapper (), id));
+        return Optional.of(jdbcTemplate.queryForObject("select * from pizza where id=?", new PizzaRowMapper (), id));
     }
     
     
 	@Override
 	public Pizza addPizza(Pizza pizza) {
-		//jdbcTemplate.update("insert into pizza(name, value) values (?,?)", pizza.getName(), pizza.getValue());
-		
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcTemplate.update(new PreparedStatementCreator() {
 	        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -59,13 +59,13 @@ public class PizzaService implements PizzaServiceInterface {
 	    },
 	    keyHolder);
 		
-		pizza.setId(keyHolder.getKeyAs(Long.class));
+		BigInteger bi = keyHolder.getKeyAs(BigInteger.class);
+		pizza.setId(bi.longValue());
 		return pizza;
 	}
 
 	@Override
 	public void deletePizza(Long id) {
-		//JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		jdbcTemplate.update("delete from pizza where id=" + id);
 	}
 
