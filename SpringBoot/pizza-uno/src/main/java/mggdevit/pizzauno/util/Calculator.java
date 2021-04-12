@@ -39,15 +39,17 @@ public class Calculator {
 		});
 
 		alResultList.forEach((ArrayList<Integer> al) -> {
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < al.size() - 1; i++) {
-				if (i > 0)
-					sb.append(", ");
-				sb.append(hmPizzaByPrice.get(al.get(i)));
-			}
-			if (pll.size() < 5)
+			if (pll.size() < 5) {
+				StringBuilder sb = new StringBuilder();
+				for (int i = 0; i < al.size() - 1; i++) {
+					if (i > 0)
+						sb.append(", ");
+					sb.append(hmPizzaByPrice.get(al.get(i)));
+				}
 				pll.add(new PizzaList(sb.toString(), al.get(al.size() - 1)));
+			}
 		});
+		
 		return pll;
 	}
 }
