@@ -11,8 +11,19 @@
 
 <script type="text/javascript">
 	function doOnLoad() {
+		document.getElementById("div_pleasewait").style.display = "none";
+		document.getElementById("div_calc").style.display = "block";
+		document.getElementById("input_budget").disabled = false;
+		document.getElementById("button_submit").disabled = false;
 		document.getElementById("input_budget").focus();
 		document.getElementById("input_budget").select();
+	}
+	function doFormSubmit() {
+		form_input.submit();
+		document.getElementById("input_budget").disabled = true;
+		document.getElementById("button_submit").disabled = true;
+		document.getElementById("div_pleasewait").style.display = "block";
+		document.getElementById("div_calc").style.display = "none";
 	}
 	window.addEventListener("load", doOnLoad);
 </script>
@@ -36,12 +47,10 @@
 		</table>
 	</div>
 	
-<!-- 	<hr> -->
-	
 	<div class="commondiv" id="div_form">
-		<form action="form" th:action="@{/}" th:object="${input}" method="post">
+		<form name="form_input" action="form" th:action="@{/}" th:object="${input}" method="post">
 			<fieldset>
-				<legend>We kindly offer you pizzas</legend>
+				<legend>We kindly offer you our pizzas</legend>
 				<table class="formtable">
 					<tr class="formtablerow">
 						<td class="formtablecell"><label for="budget">How much would you like to spend?</label></td>
@@ -49,7 +58,7 @@
 					</tr>
 					<tr class="formtablerow">
 						<td class="formtablecell">&nbsp;</td>
-						<td class="formtablecell"><input type="submit" value="Submit" /></td>
+						<td class="formtablecell"><input type="submit" value="Submit" onclick="doFormSubmit();" id="button_submit"/></td>
 					</tr>
 				</table>
 
@@ -60,7 +69,6 @@
 					<li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
 				</ul>
 			</div>
-<!-- 			<hr> -->
 			<ul>
 				<li th:each="e : ${#fields.detailedErrors()}"
 					th:class="${e.global}? globalerr : fielderr"><span
@@ -69,10 +77,11 @@
 			</ul>
 		</form>
 	</div>
-	
-	
-<!-- 	<hr> -->
 
+	<div class="commondiv" id="div_pleasewait">
+		<h2>Please wait ...</h2>
+	</div>
+	
 	<div class="commondiv" id="div_calc">
 		<table border="1">
 			<caption><b>Possible pizza variations at the smallest remainder amount</b></caption>
@@ -83,14 +92,10 @@
 			<tr th:each="item : ${calclist}">
 				<td th:text="${item.pizzas}">...</td>
 				<td th:text="${item.remainder}">...</td>
-<!-- 				<td th:text="${item.id}">...</td> -->
-<!-- 				<td th:text="${item.name}">...</td> -->
-<!-- 				<td th:text="${item.value}">...</td> -->
 			</tr>
 		</table>
 	</div>
 
 </body>
-
 
 </html>
