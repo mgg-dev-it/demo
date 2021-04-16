@@ -28,18 +28,18 @@
 		var xhr = new XMLHttpRequest(id);
 		xhr.open("GET", "/api/users/"+id, true);
 		xhr.onload = function (e) {
-  		if (xhr.readyState === 4) {
-    		if (xhr.status === 200) {
-    	  		console.log(xhr.responseText);
+  			if (xhr.readyState === 4) {
+    			if (xhr.status === 200) {
+    	  			console.log(xhr.responseText);
     			} else {
-      			console.error(xhr.statusText);
+      				console.error(xhr.statusText);
     			}
   			}
 		};
 		xhr.onerror = function (e) {
-  		console.error(xhr.statusText);
-	};
-xhr.send(null);
+  			console.error(xhr.statusText);
+		};
+		xhr.send(null);
 	}
 </script>
 </head>
@@ -72,8 +72,8 @@ xhr.send(null);
 	<div class="commondiv" id="div_form" style="display: none">
 		Form <input type="button" value="Back" onclick="doBack()">
 
-		<form action="viewusers" th:action="@{/viewusers}" th:object="${oneuser}"
-			method="post">
+		<form action="viewusers" th:action="@{/viewusers}"
+			th:object="${oneuser}" method="post">
 			<fieldset>
 				<legend>User</legend>
 				<table>
